@@ -37,7 +37,7 @@ const BlogDetails = () => {
             showToast('error', 'Data not deleted.')
         }
     }
- 
+
 
     if (loading) return <Loading />
     return (
@@ -75,7 +75,7 @@ const BlogDetails = () => {
                                         <TableCell>{blog?.title}</TableCell>
                                         <TableCell>{blog?.slug}</TableCell>
                                         <TableCell>{moment(blog?.createdAt).format('DD-MM-YYYY')}</TableCell>
-                                     
+
                                         <TableCell className="flex gap-3">
                                             <Button variant="outline" className="hover:bg-violet-500 hover:text-white" asChild>
                                                 <Link to={RouteBlogEdit(blog._id)}>

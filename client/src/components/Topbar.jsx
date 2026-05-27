@@ -37,24 +37,42 @@ const Topbar = () => {
     const navigate = useNavigate()
     const user = useSelector((state) => state.user)
 
+const handleLogout = async () => {
+  try {
+    const url = `${getEnv('VITE_API_BASE_URL')}/auth/logout`.replace(/\/+$/, '');
+    console.log('Logging out ->', url);
 
-    const handleLogout = async () => {
-        try {
-            const response = await fetch(`${getEnv('VITE_API_BASE_URL')}/auth/logout`, {
-                method: 'get',
-                credentials: 'include',
-            })
-            const data = await response.json()
-            if (!response.ok) {
-                return showToast('error', data.message)
-            }
-            dispath(removeUser())
-            navigate(RouteIndex)
-            showToast('success', data.message)
-        } catch (error) {
-            showToast('error', error.message)
-        }
+    const response = await fetch(url, {
+      method: 'POST',   
+      credentials: 'include'
+    });
+
+    console.log('logout status', response.status, response.headers.get('content-type'));
+
+    const contentType = response.headers.get('content-type') || '';
+    if (!contentType.includes('application/json')) {
+      const text = await response.text();
+      console.error('Logout response not JSON:', text);
+      showToast('error', `Server returned non-json response (${response.status})`);
+      return;
     }
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      showToast('error', data.message || 'Logout failed');
+      return;
+    }
+
+    dispath(removeUser());
+    navigate(RouteIndex);
+    showToast('success', data.message || 'Logged out');
+  } catch (error) {
+    console.error('Logout error', error);
+    showToast('error', error.message || 'Something went wrong');
+  }
+}
+
 
     const toggleSearch = () => {
         setShowSearch(!showSearch)

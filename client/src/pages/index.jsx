@@ -1,4 +1,3 @@
-
 import BlogCard from '@/components/BlogCard'
 import Loading from '@/components/Loading'
 import { getEnv } from '@/helpers/getEnv'
