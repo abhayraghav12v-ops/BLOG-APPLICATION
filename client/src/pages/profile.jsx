@@ -40,7 +40,7 @@ const Profile = () => {
       credentials: "include",
     }
   );
-  // console.log(userData)
+
 
   const dispath= useDispatch();
 
