@@ -23,7 +23,7 @@ import { showToast } from '@/helpers/showToast'
 const CategoryDetails = () => {
     const  [refreshData, setRefreshData] = useState(false)
 
-    const { data: categoryData, loading, } = useFetch(`${getEnv('VITE_API_BASE_URL')}/category/all-category`, {
+    const { data: categoryData, loading, } = useFetch(`${getEnv('VITE_API_BASE_URL')}/api/category/all-category`, {
         method: 'get',
         credential: 'include'
     }, [refreshData])
