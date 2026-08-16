@@ -43,7 +43,7 @@ const AddCategory = () => {
     async function onSubmit(values) {
         try {
             const response = await fetch(
-                `${getEnv("VITE_API_BASE_URL")}/category/add`,
+                `${getEnv("VITE_API_BASE_URL")}/api/category/add`,
                 {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
