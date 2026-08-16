@@ -3,7 +3,11 @@ import { handleError } from '../helpers/handleError.js'
 
 export const onlyadmin = async (req, res, next) => {
     try {
+        console.log("Cookies received:", req.cookies)
+
         const token = req.cookies.access_token
+
+        console.log("Access token exists:", !!token)
 
         if (!token) {
             return next(handleError(403, 'Unauthorized'))
@@ -11,7 +15,7 @@ export const onlyadmin = async (req, res, next) => {
 
         const decodeToken = jwt.verify(token, process.env.JWT_SECRET)
 
-        console.log('Decoded token:', decodeToken)
+        console.log("Decoded token:", decodeToken)
 
         if (decodeToken.role === 'admin') {
             req.user = decodeToken
@@ -21,6 +25,7 @@ export const onlyadmin = async (req, res, next) => {
         }
 
     } catch (error) {
+        console.log("JWT error:", error.message)
         next(handleError(500, error.message))
     }
 }
