@@ -17,13 +17,13 @@ const BlogCard = ({ props }) => {
           <div className='flex items-center justify-between'>
             <div className='flex justify-between items-center gap-2'>
               <Avatar>
-                <AvatarImage src={props.author.avatar || usericon} />
+                <AvatarImage src={props.author?.avatar || usericon} />
               </Avatar>
               <span>
-                {props.author.name}
+                {props.author?.name || 'Unknown Author'}
               </span>
             </div>
-            {props.author.role === 'admin' &&
+            {props.author?.role === 'admin' &&
               <Badge variant="outline" className="bg-violet-500">
                 Admin
               </Badge>

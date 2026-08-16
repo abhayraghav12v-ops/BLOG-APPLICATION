@@ -10,15 +10,16 @@ const LikeCount = ({ props }) => {
   const [hasLiked, setHasLiked] = useState(false);
   const user = useSelector((state) => state.user);
 
-  const useridForGet = user?.isLoggedIn ? user.user._id : "";
+  const useridForGet = user?.isLoggedIn ? user.user._id : null;
 
-  const { data: blogLikeCount } = useFetch(
-    `${getEnv("VITE_API_BASE_URL")}/blog-like/get-like/${props.blogid}/${useridForGet}`,
-    {
-      method: "get",
-      credentials: "include",
-    }
-  );
+  const likeUrl = useridForGet
+    ? `${getEnv("VITE_API_BASE_URL")}/api/blog-like/get-like/${props.blogid}/${useridForGet}`
+    : `${getEnv("VITE_API_BASE_URL")}/api/blog-like/get-like/${props.blogid}`;
+
+  const { data: blogLikeCount } = useFetch(likeUrl, {
+    method: "get",
+    credentials: "include",
+  });
   useEffect(() => {
     if (blogLikeCount) {
       setLikeCount(blogLikeCount.likecount);
@@ -32,27 +33,33 @@ const LikeCount = ({ props }) => {
         return showToast("error", "Please login into your account");
       }
 
-      const res = await fetch(`${getEnv("VITE_API_BASE_URL")}/blog-like/do-like`, {
-        method: "POST",
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          userid: user.user._id,
-          blogid: props.blogid,
-        }),
-      });
+      const res = await fetch(
+        `${getEnv("VITE_API_BASE_URL")}/api/blog-like/do-like`,
+        {
+          method: "POST",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            userid: user.user._id,
+            blogid: props.blogid,
+          }),
+        },
+      );
 
       const data = await res.json();
 
       setLikeCount(data.likecount);
-      setHasLiked(data.isUserLiked);  // ✅ SERVER TRUTH SE UPDATE ✔
+      setHasLiked(data.isUserLiked); // ✅ SERVER TRUTH SE UPDATE ✔
     } catch (error) {
       showToast("error", error.message);
     }
   };
 
   return (
-    <button onClick={handleLike} className="flex justify-between items-center gap-1">
+    <button
+      onClick={handleLike}
+      className="flex justify-between items-center gap-1"
+    >
       {!hasLiked ? <FaRegHeart /> : <FaHeart className="text-red-500" />}
       {likeCount}
     </button>

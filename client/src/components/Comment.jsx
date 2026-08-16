@@ -40,7 +40,7 @@ const Comment = ({ props, blogid }) => {
         try {
             const newValues = { ...values, blogid: blogid ?? props?.blogid, user: user.user._id }
             const response = await fetch(
-                `${getEnv("VITE_API_BASE_URL")}/comment/add`,
+                `${getEnv("VITE_API_BASE_URL")}/api/comment/add`,
                 {
                     method: "POST",
                     credentials: "include",

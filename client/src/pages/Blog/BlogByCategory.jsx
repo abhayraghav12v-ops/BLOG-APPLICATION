@@ -14,7 +14,7 @@ const BlogByCategory = () => {
         loading,
         error,
     } = useFetch(
-        `${getEnv("VITE_API_BASE_URL")}/blog/get-blog-by-category/${category}`,
+        `${getEnv("VITE_API_BASE_URL")}/api/blog/get-blog-by-category/${category}`,
         {
             method: "GET",
             credentials: "include",

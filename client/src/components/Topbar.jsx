@@ -39,7 +39,7 @@ const Topbar = () => {
 
 const handleLogout = async () => {
   try {
-    const url = `${getEnv('VITE_API_BASE_URL')}/auth/logout`.replace(/\/+$/, '');
+    const url = `${getEnv('VITE_API_BASE_URL')}/api/auth/logout`.replace(/\/+$/, '');
     console.log('Logging out ->', url);
 
     const response = await fetch(url, {

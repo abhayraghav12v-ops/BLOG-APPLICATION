@@ -22,13 +22,13 @@ import { showToast } from '@/helpers/showToast'
 
 const Comments = () => {
     const [refreshData, setRefreshData] = useState(false)
-    const { data, loading, error } = useFetch(`${getEnv('VITE_API_BASE_URL')}/comment/get-all-comment`, {
+    const { data, loading, error } = useFetch(`${getEnv('VITE_API_BASE_URL')}/api/comment/get-all-comment`, {
         method: 'get',
         credentials: 'include'
     }, [refreshData])
 
     const handleDelete = async (id) => {
-        const response = await deleteData(`${getEnv('VITE_API_BASE_URL')}/comment/delete/${id}`)
+        const response = await deleteData(`${getEnv('VITE_API_BASE_URL')}/api/comment/delete/${id}`)
         if (response) {
             setRefreshData(!refreshData)
             showToast('success', 'Data deleted.')

@@ -102,7 +102,7 @@ const EditBlog = () => {
       formData.append('file', file)
       formData.append('data', JSON.stringify(values))
       const response = await fetch(
-        `${getEnv('VITE_API_BASE_URL')}/blog/update/${blogid}`,
+        `${getEnv('VITE_API_BASE_URL')}/api/blog/update/${blogid}`,
         {
           method: "put",
           credentials: "include",

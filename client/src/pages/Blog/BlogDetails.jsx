@@ -23,13 +23,13 @@ import { FiTrash } from "react-icons/fi";
 import moment from 'moment'
 const BlogDetails = () => {
     const [refreshData, setRefreshData] = useState(false)
-    const { data: blogData, loading, error } = useFetch(`${getEnv('VITE_API_BASE_URL')}/blog/get-all`, {
+    const { data: blogData, loading, error } = useFetch(`${getEnv('VITE_API_BASE_URL')}/api/blog/get-all`, {
         method: 'get',
         credentials: 'include'
     }, [refreshData])
 
     const handleDelete = (id) => {
-        const response = deleteData(`${getEnv('VITE_API_BASE_URL')}/blog/delete/${id}`)
+        const response = deleteData(`${getEnv('VITE_API_BASE_URL')}/api/blog/delete/${id}`)
         if (response) {
             setRefreshData(!refreshData)
             showToast('success', 'Data deleted.')

@@ -25,7 +25,7 @@ const GoogleLogin = () => {
                 avatar: user.photoURL,
             };
             const response = await fetch(
-                `${getEnv("VITE_API_BASE_URL")}/auth/google-login`,
+                `${getEnv("VITE_API_BASE_URL")}/api/auth/google-login`,
                 {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },

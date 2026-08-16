@@ -34,7 +34,7 @@ const Profile = () => {
     loading,
     error,
   } = useFetch(
-    `${getEnv("VITE_API_BASE_URL")}/user/get-user/${user?.user?._id}`,
+    `${getEnv("VITE_API_BASE_URL")}/api/user/get-user/${user?.user?._id}`,
     {
       method: "get",
       credentials: "include",
@@ -77,7 +77,7 @@ const Profile = () => {
         formData.append('file',file)
         formData.append('data',JSON.stringify(values))
       const response = await fetch(
-        `${getEnv("VITE_API_BASE_URL")}/user/update-user/${userData.user._id}`,
+        `${getEnv("VITE_API_BASE_URL")}/api/user/update-user/${userData.user._id}`,
         {
           method: "put",
           credentials: "include",
